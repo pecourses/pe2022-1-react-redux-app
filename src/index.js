@@ -3,11 +3,38 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+
+// reducer - (state, action) => state
+// чиста функція
+
+// action - {type: 'increment' [, {payload}]}
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { count: 0 },
+  reducers: {
+    decrement (state, action) {
+      state.count = state.count - 1;
+    },
+    increment (state, action) {
+      state.count = state.count + 1;
+    },
+  },
+});
+
+const { reducer, actions } = counterSlice;
+export const { decrement, increment } = actions;
+
+const store = configureStore({ reducer });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
