@@ -1,7 +1,6 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-import { decrement, increment } from '../..';
+import { decrement, increment } from './../../store/slices/counterSlice';
 
 function Counter (props) {
   const { count, dispatch } = props;
