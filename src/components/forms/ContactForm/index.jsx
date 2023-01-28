@@ -1,18 +1,17 @@
-import classNames from 'classnames';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import React from 'react';
 import { CONTACT_VALIDATION_SCHEMA } from '../../../utils/validate/validationSchemas';
 import Input from '../Input';
 import styles from './ContactForm.module.sass';
-// Name, Tel, Email, Birthday
+import { connect } from 'react-redux';
+import { createContact } from '../../../store/slices/contactsSlice';
 
-function ContactForm () {
+function ContactForm ({ createNewContact }) {
   const initialValues = { name: '', phone: '', email: '', birthday: '' };
 
   const handleSubmit = (values, formikBag) => {
-    console.log('Submit form with values:', values);
+    createNewContact(values);
     formikBag.resetForm();
-    console.log('formikBag.resetForm :>> ', formikBag.resetForm);
   };
 
   const classes = {
@@ -23,7 +22,6 @@ function ContactForm () {
   };
 
   return (
-    // initialValues onSubmit - обов'язкові пропи для Formik
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -64,4 +62,8 @@ function ContactForm () {
   );
 }
 
-export default ContactForm;
+const mapDispatchToProps = dispatch => ({
+  createNewContact: v => dispatch(createContact(v)), // => {payload: v}
+});
+
+export default connect(null, mapDispatchToProps)(ContactForm);
