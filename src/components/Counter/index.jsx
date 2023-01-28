@@ -10,6 +10,7 @@ function Counter (props) {
   //* про необхідність змінити стан.
   //* Як саме треба змінити стан вказує екшн в параметрах dispatch:
   //* "dispatch надсилає екшн с стору"
+
   const decrementCount = () => {
     dispatch(decrement());
   };
