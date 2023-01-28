@@ -6,6 +6,7 @@ function ContactPage () {
     <section>
       <h2>Contact Form</h2>
       <ContactForm />
+      {/* <ContactsList/> */}
     </section>
   );
 }
