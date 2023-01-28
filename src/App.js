@@ -1,8 +1,8 @@
 import './App.css';
-import ThemeSwitcher from './components/ThemeSwitcher';
+import ContactPage from './pages/ContactPage/index';
 
 function App () {
-  return <ThemeSwitcher />;
+  return <ContactPage />;
 }
 
 export default App;
