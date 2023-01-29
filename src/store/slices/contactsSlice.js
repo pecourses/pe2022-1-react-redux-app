@@ -15,13 +15,30 @@ const contactsSlice = createSlice({
     deleteContact (state, action) {
       state.contacts = state.contacts.filter(c => c.id !== action.payload);
     },
-    // payload: id   or   payload:{id, newData}
+    // changeIsFavourite (state, action) {
+    //  payload:{id, isFavourite: true}
+    //   const index = state.contacts.findIndex(
+    //     item => item.id === action.payload.id
+    //   );
+    //   state.contacts[index].isFavourite = action.payload.isFavourite;
+    // },
+    updateContact (state, action) {
+      // payload:{id, updatedData: {isFavourite: true}}
+      const index = state.contacts.findIndex(
+        item => item.id === action.payload.id
+      );
+      console.log('index :>> ', index);
+      state.contacts[index] = {
+        ...state.contacts[index],
+        ...action.payload.updatedData,
+      };
+    },
   },
 });
 
 const { reducer, actions } = contactsSlice;
 
-export const { createContact, deleteContact } = actions;
+export const { createContact, deleteContact, updateContact } = actions; // action creators
 
 export default reducer;
 
