@@ -7,11 +7,12 @@ const USERS_SLICE_NAME = 'users';
 export const getUsers = createAsyncThunk(
   `${USERS_SLICE_NAME}/getUsers`,
   async (currentPage, thunkAPI) => {
-    const { dispatch } = thunkAPI;
+    const { dispatch } = thunkAPI; // за необхідності, щоб діспатчити екшни до інших сутностей
     const data = await fetch(
       `https://randomuser.me/api?seed=pe&page=${currentPage}&results=3`
     ).then(response => response.json());
-    dispatch(createUsers(data.results));
+    return data.results;
+    // dispatch(createUsers(data.results));
   }
 );
 
@@ -22,11 +23,20 @@ const usersSlice = createSlice({
     isFetching: false,
     error: null,
   },
-  reducers: {
-    createUsers (state, action) {
-      // payload : [...]
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(getUsers.pending, (state, action) => {
+      state.isFetching = true;
+      state.error = null;
+    });
+    builder.addCase(getUsers.fulfilled, (state, action) => {
       state.users = action.payload;
-    },
+      state.isFetching = false;
+    });
+    builder.addCase(getUsers.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isFetching = false;
+    });
   },
 });
 
