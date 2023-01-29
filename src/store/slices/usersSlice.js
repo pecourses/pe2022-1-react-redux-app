@@ -7,14 +7,11 @@ const USERS_SLICE_NAME = 'users';
 
 export const getUsers = createAsyncThunk(
   `${USERS_SLICE_NAME}/getUsers`,
-  async (currentPage, thunkAPI) => {
+  async (currentPage, { dispatch, rejectWithValue }) => {
     try {
-      const { dispatch } = thunkAPI; // за необхідності, щоб діспатчити екшни до інших сутностей
       const data = await loadUsers(currentPage);
       return data.results;
-      // dispatch(createUsers(data.results));}
     } catch (e) {
-      const { rejectWithValue } = thunkAPI;
       return rejectWithValue(e);
     }
   }
