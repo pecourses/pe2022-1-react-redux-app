@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { getUsers } from '../../store/slices/usersSlice';
 
-export const UsersList = ({ users, isFetching, error }) => {
+export const UsersList = ({ users, isFetching, error, loadUsers }) => {
+  useEffect(() => {
+    loadUsers(1);
+  }, []);
+
   return (
     <>
       {error && <div>ERROR</div>}
@@ -19,4 +24,8 @@ export const UsersList = ({ users, isFetching, error }) => {
 
 const mapStateToProps = ({ usersList }) => usersList;
 
-export default connect(mapStateToProps)(UsersList);
+const mapDispatchToProps = dispatch => ({
+  loadUsers: page => dispatch(getUsers(page)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersList);
