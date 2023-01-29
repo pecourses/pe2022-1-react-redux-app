@@ -1,8 +1,8 @@
 import './App.css';
-import ContactPage from './pages/ContactPage/index';
+import UsersList from './components/UsersList';
 
 function App () {
-  return <ContactPage />;
+  return <UsersList />;
 }
 
 export default App;
